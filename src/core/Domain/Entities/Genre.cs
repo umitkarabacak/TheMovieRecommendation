@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     /// <summary>
     /// The Movie Genre object
@@ -7,5 +9,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public List<MovieGenre> MovieGenres { get; set; }
+           = new List<MovieGenre>();
     }
 }

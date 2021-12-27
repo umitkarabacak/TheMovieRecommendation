@@ -43,6 +43,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
@@ -83,6 +86,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MovieVoteMovieId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("MovieVoteUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Vote")
                         .HasColumnType("real");
 
@@ -92,6 +101,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("MovieId", "UserId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("MovieVoteMovieId", "MovieVoteUserId");
 
                     b.ToTable("MovieVotes");
                 });
@@ -116,13 +127,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
                 {
                     b.HasOne("Domain.Entities.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("MovieGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -135,7 +146,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.MovieVote", b =>
                 {
                     b.HasOne("Domain.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("MovieVotes")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -146,9 +157,30 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.MovieVote", null)
+                        .WithMany("MovieVotes")
+                        .HasForeignKey("MovieVoteMovieId", "MovieVoteUserId");
+
                     b.Navigation("Movie");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Genre", b =>
+                {
+                    b.Navigation("MovieGenres");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Movie", b =>
+                {
+                    b.Navigation("MovieGenres");
+
+                    b.Navigation("MovieVotes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.MovieVote", b =>
+                {
+                    b.Navigation("MovieVotes");
                 });
 #pragma warning restore 612, 618
         }

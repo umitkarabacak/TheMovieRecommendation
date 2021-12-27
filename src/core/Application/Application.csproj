@@ -22,7 +22,6 @@
     <Folder Include="Movies\Commands\CreateMovieComment\" />
     <Folder Include="Movies\Commands\CreateMovieRecommendation\" />
     <Folder Include="Movies\Commands\CreateMovieVote\" />
-    <Folder Include="Movies\Queries\GetMovieDetail\" />
   </ItemGroup>
 
 </Project>

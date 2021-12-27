@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -16,5 +17,9 @@ namespace Domain.Entities
 
         public Movie Movie { get; set; }
         public User User { get; set; }
+
+
+        public List<MovieVote> MovieVotes { get; set; }
+            = new List<MovieVote>();
     }
 }
