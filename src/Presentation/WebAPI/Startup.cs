@@ -1,4 +1,5 @@
 using Application;
+using Application.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -67,7 +69,8 @@ namespace WebAPI
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(config =>
+            })
+                .AddJwtBearer(config =>
             {
                 var scretBytes = Encoding.UTF8.GetBytes(SECRET_KEY);
                 var key = new SymmetricSecurityKey(scretBytes);
@@ -84,6 +87,8 @@ namespace WebAPI
                     ValidateIssuerSigningKey = true,
                 };
             });
+
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

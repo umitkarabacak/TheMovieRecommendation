@@ -8,9 +8,13 @@ namespace WebAPI.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-            IsAuthenticated = UserName != null;
+            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? default;
+            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name) ?? default;
+
+            IsAuthenticated = UserName != default || UserId != default;
         }
+
+        public string UserId { get; }
 
         public string UserName { get; }
 

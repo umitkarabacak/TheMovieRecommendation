@@ -1,7 +1,9 @@
 ﻿using Application.Exceptions;
 using Application.Models;
+using Application.Movies.Commands.CreateMovieVote;
 using Application.Movies.Queries.GetMovieDetail;
 using Application.Movies.Queries.GetMoviesListWithPagination;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,6 +49,22 @@ namespace WebAPI.Controllers
             var getMovieDetailQuery = new GetMovieDetailQuery(movieId);
 
             var response = await Mediator.Send(getMovieDetailQuery);
+
+            return Ok(response);
+        }
+
+        // POST api/v1/[controller]/{movieId}
+        [HttpPost]
+        [Route("{movieId}/movie-vote")]
+        [Authorize]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> MovieVoteAsync(int movieId, CreateMovieVoteCommand createMovieVoteCommand)
+        {
+            if (movieId != createMovieVoteCommand.MovieId)
+                return BadRequest("key values entered do not match each other. 'MovieId route & bind object'");
+
+            var response = await Mediator.Send(createMovieVoteCommand);
 
             return Ok(response);
         }

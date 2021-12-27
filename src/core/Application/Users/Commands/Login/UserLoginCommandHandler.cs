@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Users.ViewModels;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -37,13 +38,13 @@ namespace Application.Users.Commands.Login
                 throw new Exception($"The username or password invalid");
 
             var userResponse = _mapper.Map<UserResponse>(user);
-                userResponse.TokenCode = generateJwtToken(userResponse);
+            userResponse.TokenCode = GenerateJwtToken(user);
 
             return userResponse;
         }
 
 
-        private string generateJwtToken(UserResponse userResponse)
+        private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var scretBytes = Encoding.ASCII.GetBytes(SECRET_KEY);
@@ -55,8 +56,8 @@ namespace Application.Users.Commands.Login
                 Issuer = "https://localhost:5001",
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userResponse.Username),
-                    new Claim(ClaimTypes.Name, userResponse.Username)
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
