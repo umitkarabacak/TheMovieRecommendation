@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
     public class MovieVote : AuditableEntity
     {
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
 
         public Guid UserId { get; set; }
 

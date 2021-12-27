@@ -1,6 +1,7 @@
 ﻿using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
+using System.Linq;
 
 namespace Application.Movies.ViewModels
 {
@@ -28,8 +29,13 @@ namespace Application.Movies.ViewModels
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Movie, MovieDto>()
-                .ReverseMap();
+            profile.CreateMap<MovieDto, Movie>()
+                .ForMember(src => src.MovieGenres, opts =>
+                {
+                    opts.MapFrom(srcx => srcx.genre_ids.Length > 0
+                        ? srcx.genre_ids.ToList().Select(id => new MovieGenre { GenreId = id })
+                        : null);
+                });
         }
     }
 }

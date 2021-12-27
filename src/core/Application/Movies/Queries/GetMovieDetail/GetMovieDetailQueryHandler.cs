@@ -27,7 +27,7 @@ namespace Application.Movies.Queries.GetMovieDetail
                     .ThenInclude(mg => mg.Genre)
                 .Include(m => m.MovieVotes)
                     .ThenInclude(mv => mv.User)
-                .FirstOrDefaultAsync(m => m.Id.Equals(request.MovieId));
+                .FirstOrDefaultAsync(m => m.id.Equals(request.MovieId));
 
             if (movie is null)
                 throw new NotFoundException($"MovieId {request.MovieId}", movie);

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class InitialMigrationRevisied : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,12 +23,25 @@ namespace Infrastructure.Migrations
                 name: "Movies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    original_language = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    original_title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    poster_path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    video = table.Column<bool>(type: "bit", nullable: false),
+                    vote_average = table.Column<float>(type: "real", nullable: false),
+                    overview = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    release_date = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vote_count = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false),
+                    adult = table.Column<bool>(type: "bit", nullable: false),
+                    backdrop_path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    popularity = table.Column<float>(type: "real", nullable: false),
+                    media_type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.PrimaryKey("PK_Movies", x => x.MovieId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +61,7 @@ namespace Infrastructure.Migrations
                 name: "MovieGenres",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -64,7 +77,7 @@ namespace Infrastructure.Migrations
                         name: "FK_MovieGenres_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "Id",
+                        principalColumn: "MovieId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -72,7 +85,7 @@ namespace Infrastructure.Migrations
                 name: "MovieVotes",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Vote = table.Column<float>(type: "real", nullable: false),
                     VoteNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -88,7 +101,7 @@ namespace Infrastructure.Migrations
                         name: "FK_MovieVotes_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "Id",
+                        principalColumn: "MovieId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MovieVotes_Users_UserId",

@@ -119,7 +119,7 @@ namespace Application.Movies.Commands.SyncMovieRestData
         private async Task BindDbContextToOriginMovies(List<MovieDto> movieDtos, CancellationToken cancellationToken)
         {
             var currentMovieIds = await _projectContext.Movies
-                .Select(m => m.Id)
+                .Select(m => m.id)
                 .ToListAsync(cancellationToken);
 
             movieDtos = movieDtos.Where(m => !currentMovieIds.Contains(m.id)).ToList();

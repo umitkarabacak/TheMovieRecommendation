@@ -8,8 +8,7 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Movie> builder)
         {
-            builder.Property(g => g.Id)
-                .ValueGeneratedNever();
+            builder.HasKey(m => m.MovieId);
         }
     }
 }

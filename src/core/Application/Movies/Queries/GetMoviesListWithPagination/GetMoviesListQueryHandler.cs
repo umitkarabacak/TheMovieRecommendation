@@ -31,7 +31,7 @@ namespace Application.Movies.Queries.GetMoviesListWithPagination
                 return new PaginatedItemsViewModel<MovieListItemDto>(request.PageIndex, request.PageSize, totalItems, null);
 
             var movies = await _projectContext.Movies
-                .OrderBy(m => m.Id)
+                .OrderBy(m => m.id)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
                 .ToListAsync();

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Movies.Commands.CreateMovieVote
 {
-    public class CreateMovieVoteCommandHandler : IRequestHandler<CreateMovieVoteCommand, int>
+    public class CreateMovieVoteCommandHandler : IRequestHandler<CreateMovieVoteCommand, Guid>
     {
         private readonly IProjectContext _projectContext;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace Application.Movies.Commands.CreateMovieVote
             _currentUserService = currentUserService;
         }
 
-        public async Task<int> Handle(CreateMovieVoteCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateMovieVoteCommand request, CancellationToken cancellationToken)
         {
             var currentUserId = Guid.Parse(_currentUserService.UserId);
 

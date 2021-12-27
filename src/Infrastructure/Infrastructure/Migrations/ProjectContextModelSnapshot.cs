@@ -36,21 +36,61 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Movie", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MovieId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Title")
+                    b.Property<bool>("adult")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("backdrop_path")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("media_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("original_language")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("original_title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("overview")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("popularity")
+                        .HasColumnType("real");
+
+                    b.Property<string>("poster_path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("release_date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("video")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("vote_average")
+                        .HasColumnType("real");
+
+                    b.Property<int>("vote_count")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieId");
 
                     b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
                 {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MovieId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
@@ -64,8 +104,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.MovieVote", b =>
                 {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MovieId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

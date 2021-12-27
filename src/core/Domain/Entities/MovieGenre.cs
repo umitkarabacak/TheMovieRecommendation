@@ -1,8 +1,10 @@
-﻿namespace Domain.Entities
+﻿using System;
+
+namespace Domain.Entities
 {
     public class MovieGenre
     {
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
 
         public int GenreId { get; set; }
 

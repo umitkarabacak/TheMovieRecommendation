@@ -19,7 +19,7 @@ namespace Application.Movies.Commands.CreateMovieRecommendation
         public async Task<Unit> Handle(CreateMovieRecommendationCommand request, CancellationToken cancellationToken)
         {
             var movie = await _projectContext.Movies
-                .FirstOrDefaultAsync(m => m.Id.Equals(request.MovieId)
+                .FirstOrDefaultAsync(m => m.id.Equals(request.MovieId)
                     , cancellationToken
                 );
 
