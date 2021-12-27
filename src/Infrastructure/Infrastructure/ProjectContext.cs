@@ -27,8 +27,6 @@ namespace Infrastructure
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            // Todo handle auditable entities, set properties dynamically
-
             return await base.SaveChangesAsync(cancellationToken);
         }
 

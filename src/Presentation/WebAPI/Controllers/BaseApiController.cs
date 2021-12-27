@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
     public class BaseApiController : ControllerBase
     {
         private ISender _mediator = null!;
-        public readonly ILogger Logger; // Todo encapsulation
+        public readonly ILogger Logger;
 
         public BaseApiController(ILogger logger)
         {

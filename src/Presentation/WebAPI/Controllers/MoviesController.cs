@@ -16,7 +16,6 @@ namespace WebAPI.Controllers
 
         }
 
-        // TODO : summary 
         // GET api/v1/[controller]/movies[?pageSize=3&pageIndex=10]
         [HttpGet]
         [Route("")]

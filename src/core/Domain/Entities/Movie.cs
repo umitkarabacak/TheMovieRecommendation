@@ -9,6 +9,5 @@
         /// Movie unique number
         /// </summary>
         public int Id { get; set; }
-        // TODO insert other properties.
     }
 }
