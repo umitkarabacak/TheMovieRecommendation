@@ -1,11 +1,12 @@
 ﻿using Application.Common.Mappings;
+using Application.Users.ViewModels;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Users.Commands.Login
 {
-    public class UserLoginCommand : IMapFrom<User>, IRequest<string>
+    public class UserLoginCommand : IMapFrom<User>, IRequest<UserResponse>
     {
         public string Username { get; set; }
 
