@@ -89,6 +89,8 @@ namespace WebAPI
             });
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.Configure<BackgroundTaskSettings>(Configuration.GetSection(nameof(BackgroundTaskSettings)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
