@@ -1,11 +1,13 @@
 ﻿using Application.Common.Mappings;
 using AutoMapper;
-using Domain.Entities; 
+using Domain.Entities;
+using System;
 
 namespace Application.Movies.Queries.GetMoviesListWithPagination
 {
     public class MovieListItemDto : IMapFrom<Movie>
     {
+        public Guid MovieId { get; set; }
         public int id { get; set; }
         public string title { get; set; }
         public string original_language { get; set; }

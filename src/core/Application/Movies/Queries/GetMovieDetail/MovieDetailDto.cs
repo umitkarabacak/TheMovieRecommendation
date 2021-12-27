@@ -1,6 +1,7 @@
 ﻿using Application.Common.Mappings;
 using AutoMapper;
 using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace Application.Movies.Queries.GetMovieDetail
 {
     public class MovieDetailDto : IMapFrom<Movie>
     {
+        public Guid MovieId { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Overview { get; set; }

@@ -8,7 +8,7 @@ namespace Application.Movies.Commands.CreateMovieVote
 {
     public class CreateMovieVoteCommand : IRequest<Guid>, IMapFrom<MovieVote>
     {
-        public int MovieId { get; set; }
+        public Guid MovieId { get; set; }
         public float Vote { get; set; }
         public string VoteNote { get; set; }
 

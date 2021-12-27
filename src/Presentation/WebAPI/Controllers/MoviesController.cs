@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -60,7 +61,7 @@ namespace WebAPI.Controllers
         [Authorize]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> MovieVoteAsync(int movieId, CreateMovieVoteCommand createMovieVoteCommand)
+        public async Task<IActionResult> MovieVoteAsync(Guid movieId, CreateMovieVoteCommand createMovieVoteCommand)
         {
             if (movieId != createMovieVoteCommand.MovieId)
                 return BadRequest("key values entered do not match each other. 'MovieId route & bind object'");
@@ -76,7 +77,7 @@ namespace WebAPI.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> MovieRecommendationAsync(int movieId, CreateMovieRecommendationCommand createMovieRecommendationCommand )
+        public async Task<IActionResult> MovieRecommendationAsync(int movieId, CreateMovieRecommendationCommand createMovieRecommendationCommand)
         {
             if (movieId != createMovieRecommendationCommand.MovieId)
                 return BadRequest("key values entered do not match each other. 'MovieId route & bind object'");
