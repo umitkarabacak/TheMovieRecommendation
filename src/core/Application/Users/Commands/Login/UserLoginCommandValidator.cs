@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace Application.Users.Commands
+namespace Application.Users.Commands.Login
 {
-    public class UserRegisterCommandValidator : AbstractValidator<UserRegisterCommand>
+    public class UserLoginCommandValidator : AbstractValidator<UserLoginCommand>
     {
         public static readonly int USERNAME_MIN_LENGTH = 2;
         public static readonly int USERNAME_MAX_LENGTH = 100;
@@ -10,7 +10,7 @@ namespace Application.Users.Commands
         public static readonly int PASSWORD_MIN_LENGTH = 4;
         public static readonly int PASSWORD_MAX_LENGTH = 10;
 
-        public UserRegisterCommandValidator()
+        public UserLoginCommandValidator()
         {
             RuleFor(u => u.Username)
                 .NotEmpty()

@@ -4,7 +4,7 @@ using Domain.Entities;
 using MediatR;
 using System;
 
-namespace Application.Users.Commands
+namespace Application.Users.Commands.Register
 {
     public class UserRegisterCommand : IMapFrom<User>, IRequest<Guid>
     {

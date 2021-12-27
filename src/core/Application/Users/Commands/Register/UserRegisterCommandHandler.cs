@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Users.Commands
+namespace Application.Users.Commands.Register
 {
     public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, Guid>
     {
