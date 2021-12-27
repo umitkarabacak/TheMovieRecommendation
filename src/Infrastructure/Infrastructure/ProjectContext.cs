@@ -23,7 +23,7 @@ namespace Infrastructure
 
         public DbSet<MovieVote> MovieVotes { get; set; }
 
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

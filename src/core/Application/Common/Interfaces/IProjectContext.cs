@@ -11,7 +11,7 @@ namespace Application.Interfaces
         DbSet<Movie> Movies { get; }
         DbSet<MovieGenre> MovieGenres { get; }
         DbSet<MovieVote> MovieVotes { get; }
-        DbSet<User> User { get; }
+        DbSet<User> Users { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
