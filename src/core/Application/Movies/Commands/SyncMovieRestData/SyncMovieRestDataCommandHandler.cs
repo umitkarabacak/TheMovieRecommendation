@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,20 +20,22 @@ namespace Application.Movies.Commands.SyncMovieRestData
 
         public async Task<Unit> Handle(SyncMovieRestDataCommand request, CancellationToken cancellationToken)
         {
-            var genres = await GetOriginGenres(request);
-            var movies = await GetOriginMovies(request);
+            var genres = GetOriginGenres(request, cancellationToken);
+            var movies = GetOriginMovies(request, cancellationToken);
+
+            await Task.WhenAll(genres, movies);
 
             return Unit.Value;
         }
 
-        private async Task<List<GenreDto>> GetOriginGenres(SyncMovieRestDataCommand requestCommand)
+        private async Task<List<GenreDto>> GetOriginGenres(SyncMovieRestDataCommand requestCommand, CancellationToken cancellationToken)
         {
             var client = new RestClient(requestCommand.ApiGenreUrl);
 
             var request = new RestRequest(Method.GET);
-                request.AddParameter("api_key", requestCommand.ApiKey);
+            request.AddParameter("api_key", requestCommand.ApiKey);
 
-            var response = await client.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request, cancellationToken);
 
             if (!response.IsSuccessful)
             {
@@ -48,7 +49,7 @@ namespace Application.Movies.Commands.SyncMovieRestData
             return genreResponse.Genres;
         }
 
-        private async Task<List<MovieDto>> GetOriginMovies(SyncMovieRestDataCommand requestCommand)
+        private async Task<List<MovieDto>> GetOriginMovies(SyncMovieRestDataCommand requestCommand, CancellationToken cancellationToken)
         {
             var responseObject = new List<MovieDto>();
             var pageSize = 1;
@@ -58,10 +59,10 @@ namespace Application.Movies.Commands.SyncMovieRestData
             while (responseObject.Count < requestCommand.TakeMovieRowCount)
             {
                 var request = new RestRequest(Method.GET);
-                    request.AddParameter("api_key", requestCommand.ApiKey);
-                    request.AddParameter("page", pageSize);
+                request.AddParameter("api_key", requestCommand.ApiKey);
+                request.AddParameter("page", pageSize);
 
-                var response = await client.ExecuteAsync(request);
+                var response = await client.ExecuteAsync(request, cancellationToken);
 
                 if (!response.IsSuccessful)
                 {
