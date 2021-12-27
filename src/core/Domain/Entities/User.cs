@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -16,5 +17,9 @@ namespace Domain.Entities
         /// User password
         /// </summary> 
         public string Password { get; set; }
+
+
+        public List<MovieVote> MovieVotes { get; set; }
+            = new List<MovieVote>();
     }
 }

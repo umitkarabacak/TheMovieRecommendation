@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20211227005305_InitialMigration")]
+    [Migration("20211227023644_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,12 +88,6 @@ namespace Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MovieVoteMovieId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("MovieVoteUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<float>("Vote")
                         .HasColumnType("real");
 
@@ -103,8 +97,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("MovieId", "UserId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("MovieVoteMovieId", "MovieVoteUserId");
 
                     b.ToTable("MovieVotes");
                 });
@@ -123,7 +115,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
@@ -154,14 +146,10 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("MovieVotes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.Entities.MovieVote", null)
-                        .WithMany("MovieVotes")
-                        .HasForeignKey("MovieVoteMovieId", "MovieVoteUserId");
 
                     b.Navigation("Movie");
 
@@ -180,7 +168,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("MovieVotes");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MovieVote", b =>
+            modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("MovieVotes");
                 });

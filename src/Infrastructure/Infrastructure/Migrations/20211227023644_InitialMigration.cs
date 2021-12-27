@@ -43,7 +43,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,8 +78,6 @@ namespace Infrastructure.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Vote = table.Column<float>(type: "real", nullable: false),
                     VoteNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieVoteMovieId = table.Column<int>(type: "int", nullable: true),
-                    MovieVoteUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -95,15 +93,9 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MovieVotes_MovieVotes_MovieVoteMovieId_MovieVoteUserId",
-                        columns: x => new { x.MovieVoteMovieId, x.MovieVoteUserId },
-                        principalTable: "MovieVotes",
-                        principalColumns: new[] { "MovieId", "UserId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MovieVotes_User_UserId",
+                        name: "FK_MovieVotes_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -112,11 +104,6 @@ namespace Infrastructure.Migrations
                 name: "IX_MovieGenres_GenreId",
                 table: "MovieGenres",
                 column: "GenreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MovieVotes_MovieVoteMovieId_MovieVoteUserId",
-                table: "MovieVotes",
-                columns: new[] { "MovieVoteMovieId", "MovieVoteUserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieVotes_UserId",
