@@ -23,7 +23,6 @@
     <Folder Include="Movies\Commands\CreateMovieRecommendation\" />
     <Folder Include="Movies\Commands\CreateMovieVote\" />
     <Folder Include="Movies\Queries\GetMovieDetail\" />
-    <Folder Include="Movies\Queries\GetMoviesListWithPagination\" />
   </ItemGroup>
 
 </Project>
