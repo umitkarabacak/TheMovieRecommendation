@@ -18,6 +18,7 @@ namespace WebAPI
                 {
                     webBuilder.UseStartup<Startup>();
                 })
+                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
                 .ConfigureServices((hostedContext, services) =>
                 {
                     services.AddHostedService<MovieDataUpdateBackgroundService>();
