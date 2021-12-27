@@ -8,6 +8,9 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
+            builder.Property(g => g.Id)
+                .ValueGeneratedNever();
+
             builder
                 .Property(g => g.Name)      // select configuration property
                 .IsRequired()               // selected property is required
