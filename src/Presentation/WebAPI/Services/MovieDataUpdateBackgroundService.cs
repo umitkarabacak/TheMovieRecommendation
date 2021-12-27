@@ -47,7 +47,7 @@ namespace WebAPI.Services
                     TakeMovieRowCount = _backgroundTaskSettings.TakeMovieRowCount,
                 };
 
-                //await _sender.Send(backgroundJob);
+                await _sender.Send(backgroundJob);
 
                 await Task.Delay(frequencyHour, stoppingToken);
             }
