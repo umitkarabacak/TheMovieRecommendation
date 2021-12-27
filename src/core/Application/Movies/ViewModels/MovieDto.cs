@@ -1,6 +1,10 @@
-﻿namespace Application.Movies.ViewModels
+﻿using Application.Common.Mappings;
+using AutoMapper;
+using Domain.Entities;
+
+namespace Application.Movies.ViewModels
 {
-    public class MovieDto
+    public class MovieDto : IMapFrom<Movie>
     {
         public int[] genre_ids { get; set; }
         public string title { get; set; }
@@ -21,6 +25,11 @@
         public string name { get; set; }
         public string original_name { get; set; }
         public string[] origin_country { get; set; }
-    }
 
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Movie, MovieDto>()
+                .ReverseMap();
+        }
+    }
 }
