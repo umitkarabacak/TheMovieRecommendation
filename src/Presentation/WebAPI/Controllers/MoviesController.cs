@@ -1,5 +1,6 @@
 ﻿using Application.Exceptions;
 using Application.Models;
+using Application.Movies.Commands.CreateMovieRecommendation;
 using Application.Movies.Commands.CreateMovieVote;
 using Application.Movies.Queries.GetMovieDetail;
 using Application.Movies.Queries.GetMoviesListWithPagination;
@@ -53,7 +54,7 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
-        // POST api/v1/[controller]/{movieId}
+        // POST api/v1/[controller]/{movieId}/movie-vote
         [HttpPost]
         [Route("{movieId}/movie-vote")]
         [Authorize]
@@ -67,6 +68,22 @@ namespace WebAPI.Controllers
             var response = await Mediator.Send(createMovieVoteCommand);
 
             return Ok(response);
+        }
+
+        // POST api/v1/[controller]/{movieId}/movie-recommendation
+        [HttpPost]
+        [Route("{movieId}/movie-recommendation")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> MovieRecommendationAsync(int movieId, CreateMovieRecommendationCommand createMovieRecommendationCommand )
+        {
+            if (movieId != createMovieRecommendationCommand.MovieId)
+                return BadRequest("key values entered do not match each other. 'MovieId route & bind object'");
+
+            await Mediator.Send(createMovieRecommendationCommand);
+
+            return NoContent();
         }
     }
 }
