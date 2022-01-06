@@ -30,7 +30,7 @@ namespace WebAPI
         {
             services.AddApplication();
 
-            services.AddPersistence(Configuration);
+            services.AddPersistence();
 
             services.AddControllers();
 
