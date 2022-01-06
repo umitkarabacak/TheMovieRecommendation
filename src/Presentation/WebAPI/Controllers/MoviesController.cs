@@ -22,6 +22,7 @@ namespace WebAPI.Controllers
         }
 
         // GET api/v1/[controller]/[?pageSize=3&pageIndex=10]
+        [AllowAnonymous]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<MovieListItemDto>), StatusCodes.Status200OK)]
@@ -39,6 +40,7 @@ namespace WebAPI.Controllers
         }
 
         // GET api/v1/[controller]/{movieId}
+        [Authorize]
         [HttpGet]
         [Route("{movieId}")]
         [ProducesResponseType(typeof(MovieDetailDto), StatusCodes.Status200OK)]
